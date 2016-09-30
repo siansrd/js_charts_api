@@ -1,23 +1,34 @@
 var countries = null;
-var selectedCountries = ['Hungary', 'Spain', 'United Kingdom', 'Italy'];
+var selectedCountries = ['Hungary', 'Spain', 'United Kingdom', 'Italy', 'Estonia', 'France'];
 var population = [];
-var area = [];
 
-var getPopulationArea = function(){
+var getPopulation = function() {
   selectedCountries.forEach(function(selectedCountry) {
     for ( var i=0; i<countries.length; i++ ) {
       if (countries[i].name === selectedCountry) {
         population.push(countries[i].population);
-        area.push(countries[i].area);
       }
     }
   });
 }
 
+var populateCountriesDropdown = function() {
+  for (var i=0; i<countries.length; i++) {
+    var item = document.createElement('option');
+    item.textContent = countries[i].name;
+    item.value = item;
+    selectCountry.appendChild(item);
+  }
+}
+
 var start = function(){
-  getPopulationArea();
-  new BarChart(selectedCountries, population, area);
+  getPopulation();
+  new BarChart(selectedCountries, population);
   new PieChart(selectedCountries, population);
+
+  var selectCountry = document.getElementById('selectCountry');
+  populateCountriesDropdown();
+
 }
 
 var makeRequest = function(url, callback){
