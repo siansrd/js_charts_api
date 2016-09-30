@@ -16,10 +16,20 @@ var populateCountriesDropdown = function() {
   for (var i=0; i<countries.length; i++) {
     var item = document.createElement('option');
     item.textContent = countries[i].name;
-    item.value = item;
+    item.value = countries[i].name;
     selectCountry.appendChild(item);
   }
 }
+
+var addCountry = function() {
+  var selected = document.getElementById('selectCountry').value;
+  selectedCountries.push(selected);
+  var list = document.getElementById('added_countries');
+  var listItem = document.createElement('p');
+  listItem.innerText = selected;
+  list.appendChild(listItem);
+}
+
 
 var start = function(){
   getPopulation();

@@ -13,10 +13,11 @@
 <body>
   <h1>Places and their Peeps</h1>
   <form id="countries">
-    <select id="selectCountry">
-      <option>Add a country</option>
+    <select id="selectCountry" onchange="addCountry()">
+      <option selected="true" disabled>Add a country</option>
     </select>
   </form>
+  <div id="added_countries"></div>
   <div id="barChart"></div>
   <div id="pieChart"></div>
 
