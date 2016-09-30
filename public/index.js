@@ -1,5 +1,5 @@
 var countries = null;
-var selectedCountries = ['Hungary', 'Spain', 'United Kingdom', 'Italy', 'Estonia', 'France'];
+var selectedCountries = [];
 var population = [];
 
 var getPopulation = function() {
@@ -31,13 +31,17 @@ var addCountry = function() {
 }
 
 
-var start = function(){
-  getPopulation();
-  new BarChart(selectedCountries, population);
-  new PieChart(selectedCountries, population);
-
+var start = function() {
+  
   var selectCountry = document.getElementById('selectCountry');
   populateCountriesDropdown();
+
+  graphs = document.getElementById('graph');
+  graph.onclick = function() {
+    getPopulation();
+    new BarChart(selectedCountries, population);
+    new PieChart(selectedCountries, population);
+  }
 
 }
 
