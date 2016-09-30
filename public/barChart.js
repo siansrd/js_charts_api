@@ -36,31 +36,33 @@ var BarChart = function(selectedCountries, population, area) {
             plotOptions: {
                 bar: {
                     dataLabels: {
-                        enabled: true
+                        enabled: false
                     }
                 }
             },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 80,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                shadow: true
-            },
+            // legend: {
+            //     layout: 'vertical',
+            //     align: 'right',
+            //     verticalAlign: 'top',
+            //     x: -40,
+            //     y: 80,
+            //     floating: true,
+            //     borderWidth: 1,
+            //     backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            //     shadow: true
+            // },
             credits: {
                 enabled: false
             },
             series: [{
                 name: 'Population',
                 data: population
-            }, {
-                name: 'Area (km2)',
-                data: area
-            }]
+            }
+            // {
+            //     name: 'Area (km2)',
+            //     data: area
+            // }
+            ]
 
   })
 

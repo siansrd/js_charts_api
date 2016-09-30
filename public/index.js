@@ -5,7 +5,7 @@ var area = [];
 
 var getPopulationArea = function(){
   selectedCountries.forEach(function(selectedCountry) {
-    for ( i=0; i<countries.length; i++ ) {
+    for ( var i=0; i<countries.length; i++ ) {
       if (countries[i].name === selectedCountry) {
         population.push(countries[i].population);
         area.push(countries[i].area);
@@ -14,12 +14,10 @@ var getPopulationArea = function(){
   });
 }
 
-
 var start = function(){
   getPopulationArea();
   new BarChart(selectedCountries, population, area);
-  console.log(population);
-  console.log(area);
+  new PieChart(selectedCountries, population);
 }
 
 var makeRequest = function(url, callback){
