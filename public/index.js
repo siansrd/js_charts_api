@@ -41,7 +41,7 @@ var populateCountriesDropdown = function() {
 }
 
 var urlGenerator = function(lat, lng){
- var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lat=" + lat + "&lon=" + lat + "&format=json&nojsoncallback=1&per_page=1&extras=url_o"
+ var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lat=" + lat + "&lon=" + lat + "&accuracy~3&format=json&nojsoncallback=1&per_page=1&extras=url_o"
  return url;
 }
 
@@ -52,7 +52,8 @@ var flickrRequest = function(lat, lng) {
     if(this.status !== 200) return;
     var flickrJsonString = this.responseText;
     var flickrData = JSON.parse(flickrJsonString); 
-    images.push(flickrData);
+    if (flickrData.photos.photo[0].url_o) {
+    images.push(flickrData)};  
   });
 }
 
@@ -116,10 +117,11 @@ var start = function() {
     // IMAGES
     // TODO Dnamically create imgs from array and append to #images
     var img = document.getElementById("flickrImg");
-    var image = images[0];
-    console.log("image", image)
-    console.log("Url", image.photos.photo[0].url_o)
-    img.src = image.photos.photo[0].url_o;
+    if (images.length > 0) {
+      var image = images[0];
+      img.src = image.photos.photo[0].url_o;
+    }
+    images = [];
   
 
     clearSelectedCountries();

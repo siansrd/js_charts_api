@@ -1,14 +1,74 @@
 @import 'https://code.highcharts.com/css/highcharts.css';
 
-.highcharts-background {
-  fill: #fff;
+
+/* Text */
+
+body {
+  font-family: 'Yatra One', cursive;
+  color: #000;
+  font-size: 16px;
 }
 
-.highcharts-color-0 {
-  fill: #000;
-  stroke: none;
+
+/* Layout */
+
+
+html, body {
+  width: 97%;
+  margin: 0 auto;
 }
 
+
+ol {
+      -webkit-padding-start: 20px;
+}
+
+#pagewrap {
+  width: 100%;
+  display: inline-block;
+}
+
+#list {
+  width: 250px;
+  margin-right: 100px;
+  float: left;
+}
+
+#charts {
+  width: 550px; /* Account for margins + border values */
+  float: left;
+}
+
+
+#flickr {
+  width: 30%;
+  padding: 5px 15px;
+  float: left;
+}
+
+
+#flickrImg {
+  width:100%;
+  border: 3px solid #000;
+}
+
+#pieChart {
+  border: 3px solid #00f731;
+}
+
+#barChart {
+  border: 3px solid #00f7d2;
+}
+
+.chart {
+  margin: 20px 0;
+  padding-right: 10px;
+  overflow: hidden;
+}
+
+
+
+/*Inputs*/ 
 
 select, input[type="color" i][list] {
     background-color: #fff;
@@ -29,7 +89,7 @@ input, textarea, keygen, select, button {
 }
 
 button {
-    background-color: #ccc;
+    background-color: #ffe500;
     padding: 2px 6px 3px;
     border-width: 2px;
     border-style: solid;
@@ -38,49 +98,47 @@ button {
 }
 
 
-html, body {
-  width: 97%;
-  margin: 0 auto;
+/* Highcharts */
+.highcharts-background {
+  fill: #fff;
 }
 
-body {
-  font-family: 'Yatra One', cursive;
-  color: #000;
-  font-size: 16px;
+.highcharts-color-0 {
+  fill: #0048ff;
+  stroke: none;
 }
 
-#flickrImg {
-  width:100%;
-  border: 3px solid #000;
+.highcharts-color-1 {
+  fill: #e500ff;
+  stroke: none;
+}
+
+.highcharts-color-2 {
+  fill: #ff005d;
+  stroke: none;
+}
+
+.highcharts-color-3 {
+  fill: #ff7700;
+  stroke: none;
+}
+
+.highcharts-color-4 {
+  fill: #ffe500;
+  stroke: none;
+}
+
+.highcharts-color-5 {
+  fill: #00f731;
+  stroke: none;
+}
+
+.highcharts-color-6 {
+  fill: #00f7d2;
+  stroke: none;
 }
 
 .highcharts-root {
     font-family: 'Yatra One', cursive !important;
 }
 
-
-
-ol {
-      -webkit-padding-start: 20px;
-}
-
-#pagewrap {
-  width: 100%;
-}
-
-#content {
-  width: 20%;
-  float: left;
-
-}
-
-#middle {
-  width: 60%; /* Account for margins + border values */
-  float: left;
-}
-
-#sidebar {
-  width: 20%;
-  padding: 5px 15px;
-  float: left;
-}

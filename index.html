@@ -18,7 +18,7 @@
       <h1>Places and their Peeps</h1>
     </header>
 
-    <section id="content">
+    <section id="list">
       <form id="countries">
         <select id="selectCountry" onchange="addCountry()">
           <option selected="true" disabled>Add a country</option>
@@ -26,20 +26,17 @@
       </form>
       <button id="getInfo">PLACES & PEEPS</button>
       <ol id="added_countries"></ol>
-    </section>
-
-    <section id="middle">
-      <div id="charts">
-        <div id="barChart"></div>
-        <div id="pieChart"></div>
-      </div>
-    </section>
-
-    <aside id="sidebar">
       <div id="images">
         <img src="" id="flickrImg"/>
       </div>
-    </aside>
+    </section>
+
+    <section id="charts">
+      <div id="charts">
+        <div class="chart" id="pieChart"></div>
+        <div class="chart" id="barChart"></div>
+      </div>
+    </section>
 
   </div>
 

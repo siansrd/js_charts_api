@@ -40,16 +40,17 @@ var PieChart = function(selectedCountries, population) {
             allowPointSelect: true,
             cursor: 'pointer',
             dataLabels: {
-                enabled: false
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
             },
-            showInLegend: true
+            showInLegend: false
         }
     },
     credits: {
         enabled: false
     },
     series: [{
-        name: 'SOMETHING',
+        name: 'Population',
         colorByPoint: true,
         data: createdSegments
     }]
