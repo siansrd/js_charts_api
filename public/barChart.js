@@ -8,9 +8,6 @@ var BarChart = function(selectedCountries, population) {
       type: 'bar',
       renderTo: container
     },
-    title: {
-        text: 'Places and their Peeps'
-    },
     xAxis: {
         categories: selectedCountries
     },
@@ -23,6 +20,9 @@ var BarChart = function(selectedCountries, population) {
         labels: {
             overflow: 'justify'
         }
+    },
+    title: {
+        text: ' ',
     },
     plotOptions: {
         bar: {

@@ -17,7 +17,9 @@ var createSegments = function(selectedCountries, population) {
 var PieChart = function(selectedCountries, population) {
 
   var container = document.getElementById('pieChart');
-  var createdSegments = createSegments(selectedCountries, population);
+  var createdSegments = createSegments(selectedCountries, population)
+
+
   var chart = new Highcharts.Chart({
 
     chart: {
@@ -28,7 +30,7 @@ var PieChart = function(selectedCountries, population) {
         renderTo: container
     },
     title: {
-        text: 'Places and their Peeps',
+        text: ' ',
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

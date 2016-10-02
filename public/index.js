@@ -5,12 +5,22 @@ var selectedCountriesObjs = [];
 var population = [];
 
 
-var hideCharts = function() {
-  graphs = document.querySelector('#charts');
+
+var hideInfo = function() {
+  var graphs = document.querySelector('#charts');
   graphs.style.display = 'none';
+  var outputImages = document.querySelector('#images');
+  outputImages.style.display = 'none';
 }
 
-// TODO: Refactor functions
+var displayInfo = function() {
+  var graphs = document.querySelector('#charts');
+  graphs.style.display = 'flex';
+  var outputImages = document.querySelector('#images');
+  outputImages.style.display = 'block';
+}
+
+
 var getPopulation = function() {
   selectedCountries.forEach(function(selectedCountry) {
     for ( var i=0; i<countries.length; i++ ) {
@@ -21,7 +31,6 @@ var getPopulation = function() {
   });
 }
 
-
 var populateCountriesDropdown = function() {
   for (var i=0; i<countries.length; i++) {
     var item = document.createElement('option');
@@ -31,27 +40,39 @@ var populateCountriesDropdown = function() {
   }
 }
 
-var addCountry = function() {
-  var selected = document.getElementById('selectCountry');
-  selectedCountries.push(selected.value);
-  selectedCountriesObjs.push(selected);
-  var list = document.getElementById('added_countries');
-  var listItem = document.createElement('li');
-  listItem.innerText = selected.value;
-  list.appendChild(listItem);
-  flickrRequest();
+var urlGenerator = function(lat, lng){
+ var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lat=" + lat + "&lon=" + lat + "&format=json&nojsoncallback=1&per_page=1&extras=url_o"
+ return url;
 }
 
 
-var flickrRequest = function() {
-  var flickr = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lon=26&format=json&nojsoncallback=1&per_page=1&extras=url_o";
+var flickrRequest = function(lat, lng) {
+  var flickr = urlGenerator(lat, lng);
   makeRequest(flickr, function(){
     if(this.status !== 200) return;
     var flickrJsonString = this.responseText;
     var flickrData = JSON.parse(flickrJsonString); 
     images.push(flickrData);
-    // console.log(images.photos.photo[0].url_o);
   });
+}
+
+var addCountry = function() {
+  var selected = document.getElementById('selectCountry').value;
+  selectedCountries.push(selected);
+
+  for ( var i=0; i<countries.length; i++ ) {
+    if (countries[i].name === selected) {
+      country = countries[i]
+      selectedCountriesObjs.push(country);
+      var flickrData = flickrRequest(country.latlng[0], country.latlng[1]);    
+    }
+  }
+
+  var list = document.getElementById('added_countries');
+  var listItem = document.createElement('li');
+  listItem.innerText = selected;
+  list.appendChild(listItem);
+
 }
 
 
@@ -72,6 +93,7 @@ var clearSelectedCountries = function() {
   selectedCountries = [];
   selectedCountriesObjs = [];
   population = [];
+  image = [];
   var list = document.getElementById('added_countries');
   removeChildNodes(list);
   resetSelect();
@@ -85,20 +107,21 @@ var start = function() {
 
   getInfo = document.getElementById('getInfo');
   getInfo.onclick = function() {
-    // Graphs
+    // GRAPHS
     getPopulation();
     new BarChart(selectedCountries, population);
     new PieChart(selectedCountries, population);
-    graphs.style.display = 'flex';
+    displayInfo();
     
-    // Images
-    img = document.getElementById("flickrImg");
-    image = images[0];
-    console.log(image.photos.photo[0].url_o)
+    // IMAGES
+    // TODO Dnamically create imgs from array and append to #images
+    var img = document.getElementById("flickrImg");
+    var image = images[0];
+    console.log("image", image)
+    console.log("Url", image.photos.photo[0].url_o)
     img.src = image.photos.photo[0].url_o;
-    console.log(images)
+  
 
-    // Clear
     clearSelectedCountries();
   }
 
@@ -117,7 +140,7 @@ var makeRequest = function(url, callback){
 
 var app = function(){
 
-  hideCharts();
+  hideInfo();
 
   var url = "https://restcountries.eu/rest/v1/all";
   makeRequest(url, function(){
@@ -135,4 +158,3 @@ var app = function(){
 
 window.onload = app;
 
-// "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lon=26&format=json&nojsoncallback=1&per_page=1&extras=url_o"

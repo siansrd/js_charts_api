@@ -11,21 +11,38 @@
   <link href="https://fonts.googleapis.com/css?family=Yatra+One" rel="stylesheet">
 </head>
 <body>
-  <h1>Places and their Peeps</h1>
-  <form id="countries">
-    <select id="selectCountry" onchange="addCountry()">
-      <option selected="true" disabled>Add a country</option>
-    </select>
-  </form>
-  <ul id="added_countries"></ul>
-  <button id="getInfo">PLACES & PEEPS</button>
-  <div id="charts">
-    <div id="barChart"></div>
-    <div id="pieChart"></div>
-  </div>
-  <div id="images">
-    <img src="" id="flickrImg"/>
+
+  <div id="pagewrap"> 
+
+    <header>
+      <h1>Places and their Peeps</h1>
+    </header>
+
+    <section id="content">
+      <form id="countries">
+        <select id="selectCountry" onchange="addCountry()">
+          <option selected="true" disabled>Add a country</option>
+        </select>
+      </form>
+      <button id="getInfo">PLACES & PEEPS</button>
+      <ol id="added_countries"></ol>
+    </section>
+
+    <section id="middle">
+      <div id="charts">
+        <div id="barChart"></div>
+        <div id="pieChart"></div>
+      </div>
+    </section>
+
+    <aside id="sidebar">
+      <div id="images">
+        <img src="" id="flickrImg"/>
+      </div>
+    </aside>
+
   </div>
 
 </body>
 </html>
+
