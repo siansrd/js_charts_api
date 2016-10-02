@@ -1,4 +1,4 @@
-var BarChart = function(selectedCountries, population, area) {
+var BarChart = function(selectedCountries, population) {
 
   var container = document.getElementById('barChart');
 

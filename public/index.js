@@ -25,9 +25,27 @@ var addCountry = function() {
   var selected = document.getElementById('selectCountry').value;
   selectedCountries.push(selected);
   var list = document.getElementById('added_countries');
-  var listItem = document.createElement('p');
+  var listItem = document.createElement('li');
   listItem.innerText = selected;
   list.appendChild(listItem);
+}
+
+
+var resetSelect = function() {
+  var options = document.querySelectorAll('#selectCountry option');
+  for (var i = 0, l = options.length; i < l; i++) {
+      options[i].selected = options[i].defaultSelected;
+  }
+}
+
+var clearSelectedCountries = function() {
+  selectedCountries = [];
+  population = [];
+  var list = document.getElementById('added_countries');
+  while (list.hasChildNodes()) {   
+      list.removeChild(list.firstChild);
+  }
+  resetSelect();
 }
 
 
@@ -41,7 +59,9 @@ var start = function() {
     getPopulation();
     new BarChart(selectedCountries, population);
     new PieChart(selectedCountries, population);
+    clearSelectedCountries();
   }
+
 
 }
 
