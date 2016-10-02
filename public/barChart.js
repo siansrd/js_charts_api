@@ -12,10 +12,7 @@ var BarChart = function(selectedCountries, population) {
         text: 'Places and their Peeps'
     },
     xAxis: {
-        categories: selectedCountries,
-        title: {
-            text: 'Places'
-        }
+        categories: selectedCountries
     },
     yAxis: {
         min: 0,

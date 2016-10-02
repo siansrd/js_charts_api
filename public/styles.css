@@ -1,21 +1,47 @@
+@import 'https://code.highcharts.com/css/highcharts.css';
+
+.highcharts-background {
+  fill: #f4f7f7;
+}
+
+.highcharts-color-0 {
+  fill: #881600;
+  stroke: none;
+}
+
+
+
+
+
 html, body {
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
+  background: #f4f7f7;
 }
 
 body {
   font-family: 'Yatra One', cursive;
+  color: #274c5e;
+}
+
+.highcharts-root {
+    font-family: 'Yatra One', cursive !important;
+}
+
+#charts {
+  width: 100%;
+  height: 300px;
+  display: flex;
 }
 
 #barChart {
-  width: 100%;
-  height: 500px;
+  height: 300px;
   border: 1px solid #000;
-  margin: 20px 0;
+  flex-basis: 80%;
 }
 
 #pieChart {
-  width: 100%;
-  height: 600px;
+  height: 300px;
   border: 1px solid #000;
+  flex-basis: 10%;
 }

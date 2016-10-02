@@ -1,6 +1,13 @@
 var countries = null;
+var images = null;
 var selectedCountries = [];
 var population = [];
+
+
+var hideCharts = function() {
+  graphs = document.querySelector('#charts');
+  graphs.style.display = 'none';
+}
 
 var getPopulation = function() {
   selectedCountries.forEach(function(selectedCountry) {
@@ -38,13 +45,17 @@ var resetSelect = function() {
   }
 }
 
+var removeChildNodes = function(parent) {
+  while (parent.hasChildNodes()) {   
+      parent.removeChild(parent.firstChild);
+  }
+}
+
 var clearSelectedCountries = function() {
   selectedCountries = [];
   population = [];
   var list = document.getElementById('added_countries');
-  while (list.hasChildNodes()) {   
-      list.removeChild(list.firstChild);
-  }
+  removeChildNodes(list);
   resetSelect();
 }
 
@@ -54,11 +65,12 @@ var start = function() {
   var selectCountry = document.getElementById('selectCountry');
   populateCountriesDropdown();
 
-  graphs = document.getElementById('graph');
-  graph.onclick = function() {
+  getGraphs = document.getElementById('getGraphs');
+  getGraphs.onclick = function() {
     getPopulation();
     new BarChart(selectedCountries, population);
     new PieChart(selectedCountries, population);
+    graphs.style.display = 'flex';
     clearSelectedCountries();
   }
 
@@ -73,6 +85,9 @@ var makeRequest = function(url, callback){
 }
 
 var app = function(){
+
+  hideCharts();
+
   var url = "https://restcountries.eu/rest/v1/all";
   makeRequest(url, function(){
     if(this.status !== 200) return;
@@ -81,6 +96,16 @@ var app = function(){
     countries = data;
     start();
   });
+
+  var flickr = "http://api.flickr.com/services/rest/?&method=flickr.people.getPublicPhotos&api_key=[siansAPI]&user_id=[siansUserId]&format=json&per_page=5";
+  makeRequest(flickr, function(){
+    if(this.status !== 200) return;
+    var flickrJsonString = this.responseText;
+    var flickrData = JSON.parse(flickrJsonString); 
+    images = flickrData;
+    console.log(images)
+  });
+
 }
 
 
