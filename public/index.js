@@ -1,6 +1,7 @@
 var countries = null;
-var images = null;
+var images = [];
 var selectedCountries = [];
+var selectedCountriesObjs = [];
 var population = [];
 
 
@@ -9,6 +10,7 @@ var hideCharts = function() {
   graphs.style.display = 'none';
 }
 
+// TODO: Refactor functions
 var getPopulation = function() {
   selectedCountries.forEach(function(selectedCountry) {
     for ( var i=0; i<countries.length; i++ ) {
@@ -18,6 +20,7 @@ var getPopulation = function() {
     }
   });
 }
+
 
 var populateCountriesDropdown = function() {
   for (var i=0; i<countries.length; i++) {
@@ -29,12 +32,26 @@ var populateCountriesDropdown = function() {
 }
 
 var addCountry = function() {
-  var selected = document.getElementById('selectCountry').value;
-  selectedCountries.push(selected);
+  var selected = document.getElementById('selectCountry');
+  selectedCountries.push(selected.value);
+  selectedCountriesObjs.push(selected);
   var list = document.getElementById('added_countries');
   var listItem = document.createElement('li');
-  listItem.innerText = selected;
+  listItem.innerText = selected.value;
   list.appendChild(listItem);
+  flickrRequest();
+}
+
+
+var flickrRequest = function() {
+  var flickr = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lon=26&format=json&nojsoncallback=1&per_page=1&extras=url_o";
+  makeRequest(flickr, function(){
+    if(this.status !== 200) return;
+    var flickrJsonString = this.responseText;
+    var flickrData = JSON.parse(flickrJsonString); 
+    images.push(flickrData);
+    // console.log(images.photos.photo[0].url_o);
+  });
 }
 
 
@@ -53,6 +70,7 @@ var removeChildNodes = function(parent) {
 
 var clearSelectedCountries = function() {
   selectedCountries = [];
+  selectedCountriesObjs = [];
   population = [];
   var list = document.getElementById('added_countries');
   removeChildNodes(list);
@@ -65,20 +83,30 @@ var start = function() {
   var selectCountry = document.getElementById('selectCountry');
   populateCountriesDropdown();
 
-  getGraphs = document.getElementById('getGraphs');
-  getGraphs.onclick = function() {
+  getInfo = document.getElementById('getInfo');
+  getInfo.onclick = function() {
+    // Graphs
     getPopulation();
     new BarChart(selectedCountries, population);
     new PieChart(selectedCountries, population);
     graphs.style.display = 'flex';
+    
+    // Images
+    img = document.getElementById("flickrImg");
+    image = images[0];
+    console.log(image.photos.photo[0].url_o)
+    img.src = image.photos.photo[0].url_o;
+    console.log(images)
+
+    // Clear
     clearSelectedCountries();
   }
 
-  img = document.getElementById("flickrImg");
-  img.src = images.photos.photo[0].url_o;
-
 
 }
+
+
+
 
 var makeRequest = function(url, callback){
   var request = new XMLHttpRequest();
@@ -98,16 +126,6 @@ var app = function(){
     var data = JSON.parse(jsonString); 
     countries = data;
     start();
-  });
-
-  var flickr = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lon=26&format=json&nojsoncallback=1&per_page=1&extras=url_o";
-  makeRequest(flickr, function(){
-    if(this.status !== 200) return;
-    var flickrJsonString = this.responseText;
-    var flickrData = JSON.parse(flickrJsonString); 
-    images = flickrData;
-    console.log(images.photos.photo[0].url_o);
-    console.log(images)
   });
 
 }
