@@ -24,6 +24,14 @@ body {
   color: #274c5e;
 }
 
+#images {
+  width: 90%;
+}
+
+#flickrImg {
+  width:100%;
+}
+
 .highcharts-root {
     font-family: 'Yatra One', cursive !important;
 }

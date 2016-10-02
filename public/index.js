@@ -74,6 +74,9 @@ var start = function() {
     clearSelectedCountries();
   }
 
+  img = document.getElementById("flickrImg");
+  img.src = images.photos.photo[0].url_o;
+
 
 }
 
@@ -97,16 +100,21 @@ var app = function(){
     start();
   });
 
-  var flickr = "http://api.flickr.com/services/rest/?&method=flickr.people.getPublicPhotos&api_key=[siansAPI]&user_id=[siansUserId]&format=json&per_page=5";
+  var flickr = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lon=26&format=json&nojsoncallback=1&per_page=1&extras=url_o";
   makeRequest(flickr, function(){
     if(this.status !== 200) return;
     var flickrJsonString = this.responseText;
     var flickrData = JSON.parse(flickrJsonString); 
     images = flickrData;
+    console.log(images.photos.photo[0].url_o);
     console.log(images)
   });
 
 }
 
 
+
+
 window.onload = app;
+
+// "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=[APIKEY]&lon=26&format=json&nojsoncallback=1&per_page=1&extras=url_o"
